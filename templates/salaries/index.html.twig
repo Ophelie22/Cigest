@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salaries index{% endblock %}
+
+{% block body %}
+    <h1>Salaries index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>DateDeNaissance</th>
+                <th>Sexe</th>
+                <th>Adresse</th>
+                <th>CodePostal</th>
+                <th>Ville</th>
+                <th>Courriel</th>
+                <th>Fonction</th>
+                <th>DateEntree</th>
+                <th>Salaire</th>
+                <th>Nombrecongespris</th>
+                <th>NombreCongesRestants</th>
+                <th>Cadre</th>
+                <th>DatePassageCadre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for salary in salaries %}
+            <tr>
+                <td>{{ salary.id }}</td>
+                <td>{{ salary.nom }}</td>
+                <td>{{ salary.prenom }}</td>
+                <td>{{ salary.dateDeNaissance ? salary.dateDeNaissance|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ salary.Sexe }}</td>
+                <td>{{ salary.Adresse }}</td>
+                <td>{{ salary.codePostal }}</td>
+                <td>{{ salary.ville }}</td>
+                <td>{{ salary.courriel }}</td>
+                <td>{{ salary.fonction }}</td>
+                <td>{{ salary.dateEntree ? salary.dateEntree|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ salary.salaire }}</td>
+                <td>{{ salary.nombrecongespris }}</td>
+                <td>{{ salary.nombreCongesRestants }}</td>
+                <td>{{ salary.cadre ? 'Yes' : 'No' }}</td>
+                <td>{{ salary.datePassageCadre ? salary.datePassageCadre|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_salaries_show', {'id': salary.id}) }}">show</a>
+                    <a href="{{ path('app_salaries_edit', {'id': salary.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_salaries_new') }}">Create new</a>
+{% endblock %}

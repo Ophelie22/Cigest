@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salaries{% endblock %}
+
+{% block body %}
+    <h1>Salaries</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ salary.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ salary.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ salary.prenom }}</td>
+            </tr>
+            <tr>
+                <th>DateDeNaissance</th>
+                <td>{{ salary.dateDeNaissance ? salary.dateDeNaissance|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ salary.Sexe }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ salary.Adresse }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ salary.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ salary.ville }}</td>
+            </tr>
+            <tr>
+                <th>Courriel</th>
+                <td>{{ salary.courriel }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ salary.fonction }}</td>
+            </tr>
+            <tr>
+                <th>DateEntree</th>
+                <td>{{ salary.dateEntree ? salary.dateEntree|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Salaire</th>
+                <td>{{ salary.salaire }}</td>
+            </tr>
+            <tr>
+                <th>Nombrecongespris</th>
+                <td>{{ salary.nombrecongespris }}</td>
+            </tr>
+            <tr>
+                <th>NombreCongesRestants</th>
+                <td>{{ salary.nombreCongesRestants }}</td>
+            </tr>
+            <tr>
+                <th>Cadre</th>
+                <td>{{ salary.cadre ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DatePassageCadre</th>
+                <td>{{ salary.datePassageCadre ? salary.datePassageCadre|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_salaries_index') }}">back to list</a>
+
+    <a href="{{ path('app_salaries_edit', {'id': salary.id}) }}">edit</a>
+
+    {{ include('salaries/_delete_form.html.twig') }}
+{% endblock %}
