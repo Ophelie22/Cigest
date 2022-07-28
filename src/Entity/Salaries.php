@@ -59,6 +59,10 @@ class Salaries
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $datePassageCadre = null;
 
+    #[ORM\ManyToOne(inversedBy: 'salaries')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Societe $societe = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +244,18 @@ class Salaries
     public function setDatePassageCadre(?\DateTimeInterface $datePassageCadre): self
     {
         $this->datePassageCadre = $datePassageCadre;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?Societe $societe): self
+    {
+        $this->societe = $societe;
 
         return $this;
     }

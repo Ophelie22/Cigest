@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SocieteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SocieteRepository::class)]
@@ -27,6 +29,18 @@ class Societe
 
     #[ORM\Column(length: 255)]
     private ?string $siteweb = null;
+
+    #[ORM\OneToMany(mappedBy: 'societe', targetEntity: Salaries::class)]
+    private Collection $salaries;
+
+    #[ORM\OneToMany(mappedBy: 'societe', targetEntity: Clients::class)]
+    private Collection $clients;
+
+    public function __construct()
+    {
+        $this->salaries = new ArrayCollection();
+        $this->clients = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +103,66 @@ class Societe
     public function setSiteweb(string $siteweb): self
     {
         $this->siteweb = $siteweb;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Salaries>
+     */
+    public function getSalaries(): Collection
+    {
+        return $this->salaries;
+    }
+
+    public function addSalary(Salaries $salary): self
+    {
+        if (!$this->salaries->contains($salary)) {
+            $this->salaries->add($salary);
+            $salary->setSociete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSalary(Salaries $salary): self
+    {
+        if ($this->salaries->removeElement($salary)) {
+            // set the owning side to null (unless already changed)
+            if ($salary->getSociete() === $this) {
+                $salary->setSociete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Clients>
+     */
+    public function getClients(): Collection
+    {
+        return $this->clients;
+    }
+
+    public function addClient(Clients $client): self
+    {
+        if (!$this->clients->contains($client)) {
+            $this->clients->add($client);
+            $client->setSociete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(Clients $client): self
+    {
+        if ($this->clients->removeElement($client)) {
+            // set the owning side to null (unless already changed)
+            if ($client->getSociete() === $this) {
+                $client->setSociete(null);
+            }
+        }
 
         return $this;
     }

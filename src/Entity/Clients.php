@@ -38,6 +38,9 @@ class Clients
     #[ORM\Column(length: 50)]
     private ?string $Sociéte = null;
 
+    #[ORM\ManyToOne(inversedBy: 'clients')]
+    private ?Societe $societe = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Clients
     public function setSociéte(string $Sociéte): self
     {
         $this->Sociéte = $Sociéte;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?Societe $societe): self
+    {
+        $this->societe = $societe;
 
         return $this;
     }
